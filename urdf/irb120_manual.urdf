@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!--
+  ABB IRB 120  descripcion URDF escrita a mano
+  Grupo VEVAS
+
+  Cada valor numerico lleva anotada su procedencia. Ningun numero fue
+  ajustado visualmente en RViz: todos salen de la tabla D-H o del
+  datasheet de ABB.
+
+  Tabla D-H de referencia (Truc & Lam 2020)
+
+      i   theta_i      d_i[m]   a_i[m]   alpha_i
+      1   q1           0.290    0.000    -pi/2
+      2   q2 - pi/2    0.000    0.270     0
+      3   q3           0.000    0.070    -pi/2
+      4   q4           0.302    0.000    +pi/2
+      5   q5           0.000    0.000    -pi/2
+      6   q6           0.072    0.000     0
+
+  Regla de conversion aplicada en cada <origin>
+
+      Origin_i = B_{i-1} . Rz(off_i)      con  B_i = Tz(d_i).Tx(a_i).Rx(alpha_i)
+                                          y    B_0 = I
+
+  B_i es traslacion pura (a_i, 0, d_i) seguida de un giro en x de alpha_i,
+  o sea  xyz = "a_i 0 d_i"   rpy = "alpha_i 0 0".
+-->
+<robot name="irb120">
+
+  <link name="base_link"/>
+  <link name="link_1"/>
+  <link name="link_2"/>
+  <link name="link_3"/>
+  <link name="link_4"/>
+  <link name="link_5"/>
+  <link name="link_6"/>
+  <link name="tool0"/>
+
+  <!--
+    JOINT 1   base_link -> link_1
+    Origin = B_0 . Rz(off_1) = I . Rz(0) = I
+      xyz: B_0 no traslada nada, el marco 1 nace en el origen de la base
+      rpy: off_1 = 0, no hay rotacion previa
+    Limite: J1 = +-165 deg  ->  165 * pi/180 = 2.879793 rad
+  -->
+  <joint name="joint_1" type="revolute">
+    <parent link="base_link"/>
+    <child  link="link_1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis   xyz="0 0 1"/>
+    <limit lower="-2.879793" upper="2.879793" effort="42.0" velocity="4.36"/>
+  </joint>
+
+  <!--
+    JOINT 2   link_1 -> link_2
+    Origin = B_1 . Rz(off_2) = [Tz(0.290).Tx(0).Rx(-pi/2)] . Rz(-pi/2)
+      xyz: (a_1, 0, d_1) = (0, 0, 0.290)   d_1 es la altura de la columna base
+      rpy: Rx(-pi/2).Rz(-pi/2) da R = [[0,1,0],[0,0,1],[1,0,0]]
+           Como R[2][0] = 1, la extraccion rpy cae en gimbal lock:
+           pitch = -pi/2, yaw = 0, roll = -pi/2
+    Offset: off_2 = -pi/2 reconcilia el cero mecanico de ABB (brazo
+            vertical) con el cero D-H (x_1 paralelo a x_2, brazo horizontal)
+    Limite: J2 = +-110 deg  ->  1.919862 rad
+  -->
+  <joint name="joint_2" type="revolute">
+    <parent link="link_1"/>
+    <child  link="link_2"/>
+    <origin xyz="0 0 0.290" rpy="-1.570796327 -1.570796327 0"/>
+    <axis   xyz="0 0 1"/>
+    <limit lower="-1.919862" upper="1.919862" effort="42.0" velocity="4.36"/>
+  </joint>
+
+  <!--
+    JOINT 3   link_2 -> link_3
+    Origin = B_2 . Rz(0) = Tz(0).Tx(0.270).Rx(0)
+      xyz: (a_2, 0, d_2) = (0.270, 0, 0)   a_2 es la longitud del brazo
+      rpy: alpha_2 = 0, ejes z_1 y z_2 paralelos, no hay torcimiento
+    Limite: J3 = -110 a +70 deg  ->  -1.919862 a 1.221730 rad
+            Es la unica junta asimetrica del robot
+  -->
+  <joint name="joint_3" type="revolute">
+    <parent link="link_2"/>
+    <child  link="link_3"/>
+    <origin xyz="0.270 0 0" rpy="0 0 0"/>
+    <axis   xyz="0 0 1"/>
+    <limit lower="-1.919862" upper="1.221730" effort="22.0" velocity="5.24"/>
+  </joint>
+
+  <!--
+    JOINT 4   link_3 -> link_4
+    Origin = B_3 . Rz(0) = Tz(0).Tx(0.070).Rx(-pi/2)
+      xyz: (a_3, 0, d_3) = (0.070, 0, 0)   offset lateral corto del codo
+      rpy: alpha_3 = -pi/2 alinea z_3 con z_4, girando el marco hacia
+           el eje longitudinal del antebrazo
+    Limite: J4 = +-160 deg  ->  2.792527 rad
+  -->
+  <joint name="joint_4" type="revolute">
+    <parent link="link_3"/>
+    <child  link="link_4"/>
+    <origin xyz="0.070 0 0" rpy="-1.570796327 0 0"/>
+    <axis   xyz="0 0 1"/>
+    <limit lower="-2.792527" upper="2.792527" effort="5.0" velocity="5.58"/>
+  </joint>
+
+  <!--
+    JOINT 5   link_4 -> link_5
+    Origin = B_4 . Rz(0) = Tz(0.302).Tx(0).Rx(+pi/2)
+      xyz: (a_4, 0, d_4) = (0, 0, 0.302)   d_4 despliega el antebrazo
+           hasta el centro de muneca
+      rpy: alpha_4 = +pi/2   unico alpha positivo de la tabla
+    Limite: J5 = +-120 deg  ->  2.094395 rad
+  -->
+  <joint name="joint_5" type="revolute">
+    <parent link="link_4"/>
+    <child  link="link_5"/>
+    <origin xyz="0 0 0.302" rpy="1.570796327 0 0"/>
+    <axis   xyz="0 0 1"/>
+    <limit lower="-2.094395" upper="2.094395" effort="5.0" velocity="5.58"/>
+  </joint>
+
+  <!--
+    JOINT 6   link_5 -> link_6
+    Origin = B_5 . Rz(0) = Tz(0).Tx(0).Rx(-pi/2)
+      xyz: (a_5, 0, d_5) = (0, 0, 0)   TRASLACION NULA
+           Es la firma de la muneca esferica: los ejes 4, 5 y 6 se cortan
+           en un unico punto, por eso O4 = O5 = O6 en posicion
+      rpy: alpha_5 = -pi/2, solo reorienta
+    Limite: J6 = +-400 deg  ->  6.981317 rad (mas de una vuelta completa)
+  -->
+  <joint name="joint_6" type="revolute">
+    <parent link="link_5"/>
+    <child  link="link_6"/>
+    <origin xyz="0 0 0" rpy="-1.570796327 0 0"/>
+    <axis   xyz="0 0 1"/>
+    <limit lower="-6.981317" upper="6.981317" effort="3.0" velocity="7.33"/>
+  </joint>
+
+  <!--
+    BRIDA   link_6 -> tool0   junta FIJA
+    Origin = B_6 = Tz(0.072).Tx(0).Rx(0)
+      xyz: (a_6, 0, d_6) = (0, 0, 0.072)   d_6 es el saliente de la brida
+      rpy: alpha_6 = 0
+    Es fija porque B_6 cierra la cadena: no queda ninguna variable
+    articular despues de q6.
+    Comprobacion de cierre en q = 0
+      x = d_4 + d_6 = 0.302 + 0.072 = 0.374 m
+      z = d_1 + a_2 + a_3 = 0.290 + 0.270 + 0.070 = 0.630 m
+  -->
+  <joint name="joint_6_tool0" type="fixed">
+    <parent link="link_6"/>
+    <child  link="tool0"/>
+    <origin xyz="0 0 0.072" rpy="0 0 0"/>
+  </joint>
+
+</robot>
