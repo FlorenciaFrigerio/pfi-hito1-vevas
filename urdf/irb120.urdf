@@ -1,16 +1,172 @@
 <?xml version="1.0"?>
-<!-- Generado por scripts/generate_urdf.py  NO EDITAR A MANO -->
+<!-- Generado por scripts/add_visuals.py  NO EDITAR A MANO -->
+<!-- Geometria por primitivas dimensionadas desde la tabla D-H -->
 <!-- Grupo VEVAS -->
 <robot name="irb120">
 
-  <link name="base_link"/>
-  <link name="link_1"/>
-  <link name="link_2"/>
-  <link name="link_3"/>
-  <link name="link_4"/>
-  <link name="link_5"/>
-  <link name="link_6"/>
-  <link name="tool0"/>
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.02" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.11"/>
+      </geometry>
+      <material name="base_gris">
+        <color rgba="0.18 0.20 0.22 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <link name="link_1">
+    <visual>
+      <origin xyz="0 0 0.145000" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.290000" radius="0.0600"/>
+      </geometry>
+      <material name="cuerpo">
+        <color rgba="0.95 0.42 0.07 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.145000" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.290000" radius="0.0570"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.0690"/>
+      </geometry>
+      <material name="junta">
+        <color rgba="0.18 0.20 0.22 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <link name="link_2">
+    <visual>
+      <origin xyz="0.135000 0 0" rpy="0 1.5707963 0"/>
+      <geometry>
+        <cylinder length="0.270000" radius="0.0550"/>
+      </geometry>
+      <material name="cuerpo">
+        <color rgba="0.95 0.42 0.07 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.135000 0 0" rpy="0 1.5707963 0"/>
+      <geometry>
+        <cylinder length="0.270000" radius="0.0522"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.0633"/>
+      </geometry>
+      <material name="junta">
+        <color rgba="0.18 0.20 0.22 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <link name="link_3">
+    <visual>
+      <origin xyz="0.035000 0 0" rpy="0 1.5707963 0"/>
+      <geometry>
+        <cylinder length="0.070000" radius="0.0450"/>
+      </geometry>
+      <material name="cuerpo">
+        <color rgba="0.95 0.42 0.07 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.035000 0 0" rpy="0 1.5707963 0"/>
+      <geometry>
+        <cylinder length="0.070000" radius="0.0427"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.0517"/>
+      </geometry>
+      <material name="junta">
+        <color rgba="0.18 0.20 0.22 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <link name="link_4">
+    <visual>
+      <origin xyz="0 0 0.151000" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.302000" radius="0.0380"/>
+      </geometry>
+      <material name="cuerpo">
+        <color rgba="0.95 0.42 0.07 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.151000" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.302000" radius="0.0361"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.0437"/>
+      </geometry>
+      <material name="junta">
+        <color rgba="0.18 0.20 0.22 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <link name="link_5">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.0368"/>
+      </geometry>
+      <material name="junta">
+        <color rgba="0.18 0.20 0.22 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <link name="link_6">
+    <visual>
+      <origin xyz="0 0 0.036000" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.072000" radius="0.0280"/>
+      </geometry>
+      <material name="cuerpo">
+        <color rgba="0.95 0.42 0.07 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.036000" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.072000" radius="0.0266"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.0322"/>
+      </geometry>
+      <material name="junta">
+        <color rgba="0.18 0.20 0.22 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <link name="tool0">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.012" radius="0.031"/>
+      </geometry>
+      <material name="brida">
+        <color rgba="0.18 0.20 0.22 1.0"/>
+      </material>
+    </visual>
+  </link>
 
   <joint name="joint_1" type="revolute">
     <parent link="base_link"/>
