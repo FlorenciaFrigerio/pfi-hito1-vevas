@@ -1,0 +1,22 @@
+
+   Validacion TF vs analitica   1000 configuraciones
+
+    300 / 1000   peor pos 2.457e-10 m
+    400 / 1000   peor pos 2.457e-10 m
+    500 / 1000   peor pos 2.457e-10 m
+    600 / 1000   peor pos 2.457e-10 m
+    700 / 1000   peor pos 2.457e-10 m
+    800 / 1000   peor pos 2.459e-10 m
+    900 / 1000   peor pos 2.459e-10 m
+   1000 / 1000   peor pos 2.459e-10 m
+
+Resultados sobre 501 muestras validas
+  Error posicional   medio  1.498e-10 m
+  Error posicional   maximo 2.459e-10 m
+  Error angular      maximo 1.092e-09
+  Lecturas perdidas por timeout: 499
+
+  Umbral exigido por el hito: 1e-06 m
+  Margen: 4.1e+03x por debajo del umbral
+  RESULTADO: APROBADO
+

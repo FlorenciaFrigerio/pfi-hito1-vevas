@@ -6,7 +6,7 @@ find_package(ament_cmake REQUIRED)
 # Instala los directorios de datos en el share del paquete.
 # Sin esto, package://irb120_description/... NO resuelve en RViz.
 install(
-  DIRECTORY urdf meshes launch
+  DIRECTORY urdf meshes launch rviz
   DESTINATION share/${PROJECT_NAME}
 )
 
