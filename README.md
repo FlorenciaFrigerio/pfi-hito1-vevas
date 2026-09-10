@@ -8,6 +8,9 @@ Denavit-Hartenberg y validada contra la cinemática directa analítica.
 **Grupo VEVAS** · Hito 1 del Proyecto Final Integrador
 Robótica IMT-342 · Gestión II-2026
 
+**Material demostrativo:** [carpeta en Drive](https://drive.google.com/drive/folders/1uHc6FJT6_jHLQa7Mz7QFIGZA61dkwgJ8?usp=sharing)
+— videos de la visualización en RViz, la validación TF y el historial del repositorio.
+
 ---
 
 ## Resultado
