@@ -18,9 +18,6 @@ Robótica IMT-342 · Gestión II-2026
 La carpeta [web/](web/) contiene el explorador técnico del **ABB IRB 120**:
 modelo 3D, selección de conjuntos, vista de articulaciones y celda de trabajo.
 
-Para abrirlo, desde la raíz del repositorio ejecuta `python -m http.server 8000`
-y entra en <http://localhost:8000/web/>. Consulta las [instrucciones de la web](web/README.md).
-
 ## Resultado
 
 | Métrica | Valor | Umbral del hito |
