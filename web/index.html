@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#17222e"><meta name="description" content="Explorador técnico interactivo del ABB IRB 120: estructura, seis articulaciones y componentes para una celda de clasificación y paletizado.">
+  <title>IRB 120 · Explorador técnico</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2317222e'/%3E%3Ctext x='32' y='43' font-size='37' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%23ff6540'%3E6%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body>
+<header class="topbar">
+ <a class="brand" href="./" aria-label="Inicio del explorador"><span class="brand-icon">R<span>6</span></span><span>ROBOTICS <b>LAB</b><small>EXPLORADOR TÉCNICO</small></span></a>
+ <nav aria-label="Vistas del explorador"><button data-tab="explore" class="tab active" aria-pressed="true">Explorar 3D</button><button data-tab="axes" class="tab" aria-pressed="false">Articulaciones</button><button data-tab="cell" class="tab" aria-pressed="false">Celda y componentes</button></nav>
+ <button id="fullscreen" class="top-action" title="Pantalla completa">⛶ <span>Presentar</span></button>
+</header>
+<main>
+ <section id="explorer" class="workspace" aria-label="Explorador del brazo">
+  <aside class="parts-panel">
+   <div class="section-label">ABB · IRB 120–3/0.6</div>
+   <h1>Anatomía<br>de un robot.</h1>
+   <p class="intro">Selecciona un conjunto y descubre su función.</p>
+   <div class="list-heading"><span>ESTRUCTURA</span><span>09</span></div>
+   <nav id="part-list" aria-label="Conjuntos del modelo"></nav>
+   <div class="left-note"><span class="note-rule"></span><strong>6 ejes. Una cadena mecánica.</strong><p>Los tres primeros posicionan el brazo; los tres últimos orientan la herramienta.</p></div>
+  </aside>
+  <section class="viewport" aria-label="Modelo 3D interactivo">
+   <div class="scene-heading"><span class="eyebrow">ESTUDIO DEL MANIPULADOR</span><div class="scene-name">IRB <strong>120</strong></div><p>ABB · Robot industrial de 6 ejes</p></div>
+   <div class="scene-corner"><span id="model-status">Cargando modelo…</span><button id="reset" class="icon-btn" title="Restablecer vista" aria-label="Restablecer vista">↺</button></div>
+   <div id="canvas-wrap"><canvas id="scene" aria-label="Arrastra para girar la cámara. Selecciona una pieza para consultar su ficha."></canvas><div id="labels"></div><div id="load-state" role="status"><div class="loader"></div><strong>Preparando el brazo 3D</strong><span>Geometría original del modelo</span></div><div id="hover-label" hidden></div></div>
+   <div class="view-controls"><button id="rotate" aria-pressed="false">↻ <span>Giro automático</span></button><button id="label-toggle" aria-pressed="false">⊙ <span>Etiquetas</span></button><button id="isolate" aria-pressed="false" disabled>◇ <span>Aislar</span></button></div>
+   <div class="explode-control"><label for="explode">Separar conjuntos <output id="explode-value">0%</output></label><input id="explode" type="range" min="0" max="100" value="0"><span>Despiece ilustrativo · sin movimiento articular</span></div>
+   <div class="scene-bottom"><span>Arrastra para girar · Rueda para acercar · Toca para explorar</span><span class="mini-axis"><b>X</b><b>Y</b><b>Z</b></span></div>
+  </section>
+  <aside class="detail-panel" id="detail" aria-live="polite"></aside>
+ </section>
+ <section id="cell-view" class="cell-view" hidden>
+  <div class="cell-intro"><div><span class="eyebrow">DEL MANIPULADOR AL SISTEMA</span><h1>La celda de trabajo.</h1><p>Componentes para clasificación y paletizado por visión artificial, según la guía del proyecto.</p></div><span class="badge">PROPUESTA DE INTEGRACIÓN</span></div>
+  <div class="flow" aria-label="Flujo funcional"><div><span>01 / PERCEPCIÓN</span><b>Cámara cenital</b><p>Captura de la pieza</p></div><i>→</i><div><span>02 / CÓMPUTO</span><b>PC · visión y cinemática</b><p>Pose y trayectoria</p></div><i>→</i><div><span>03 / CONTROL</span><b>ABB IRC5</b><p>Órdenes de movimiento</p></div><i>→</i><div><span>04 / ACCIÓN</span><b>IRB 120 + pinza</b><p>Manipulación de piezas</p></div></div>
+  <div class="table-heading"><h2>Lista preliminar de componentes</h2><span>Las cantidades son una propuesta para una celda.</span></div>
+  <div class="table-scroll"><table><thead><tr><th>Componente</th><th>Cant.</th><th>Función / especificación</th><th>Definición</th></tr></thead><tbody id="bom"></tbody></table></div>
+  <div class="cell-notes"><article><h3>Pinza y carga útil</h3><p>La herramienta, su adaptador y la pieza forman la carga transportada. La selección requiere comprobar masa, centro de gravedad e inercia con los diagramas de carga de ABB.</p></article><article><h3>Qué representa esta lista</h3><p>Es una propuesta de integración, no un inventario de equipos disponibles ni una cotización. La pinza azul del modelo es una representación sin referencia comercial confirmada.</p></article></div>
+ </section>
+</main>
+<footer><span>ROBÓTICA / PFI <b>·</b> Estudio de estructura e integración</span><button id="sources">Fuentes y alcance ↗</button></footer>
+<dialog id="sources-dialog"><div class="dialog-heading"><h2>Fuentes y alcance</h2><button id="close-sources" class="icon-btn" aria-label="Cerrar fuentes">×</button></div><div class="dialog-content"><h3>Especificaciones técnicas</h3><p><a href="https://library.e.abb.com/public/7aa0711a20fa41c49a8fdf3bbc3d5bb0/IRB120-Rev.J-ROBO149EN_D.pdf" target="_blank" rel="noopener">ABB · IRB 120 · ROBO149EN_D, revisión J (2019) ↗</a></p><p>Datos de referencia del IRB 120 estándar, no del IRB 120T. Verificar la variante y configuración del equipo del laboratorio. Las velocidades indicadas son valores de catálogo, no consignas de operación. La repetibilidad no equivale a exactitud absoluta.</p><h3>Proyecto académico</h3><p>Guía PFI de Robótica IMT-342, UCB Tarija, semestre II-2026: arquitectura de componentes y aplicación de clasificación y paletizado. No se reproduce aquí la guía completa ni se certifica el cumplimiento del Hito 1.</p><h3>Modelo 3D y atribución</h3><p>Basado en <a href="https://sketchfab.com/3d-models/abb-irb-120-robot-d5c10640e6ae42eaa0b96a14f50840e0" target="_blank" rel="noopener">“ABB IRB 120 Robot”</a> de <a href="https://sketchfab.com/bluoppVR" target="_blank" rel="noopener">bluoppVR</a>, bajo <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Se añadieron selección, agrupación funcional, resaltado y separación ilustrativa. Geometría de terceros; no es CAD oficial certificado.</p><h3>Alcance del explorador</h3><p>Los conjuntos se identificaron por inspección visual y estructura del GLTF. Los ejes se asocian a conjuntos de forma didáctica; no se ha calibrado una cadena cinemática. La separación es ilustrativa: no indica un procedimiento de desmontaje. El visor no calcula cinemática, colisiones ni control real.</p><p>No se asignan masas individuales, materiales específicos, referencias de motores, pares ni capacidades de pinza que no estén documentados. La estructura general de aluminio es un dato de ABB, no una identificación de cada pieza.</p><p class="muted">Motor gráfico: Three.js, licencia MIT. El modelo y las bibliotecas se sirven junto con esta web.</p></div></dialog>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+Model Information:
+* title:	ABB IRB 120 Robot
+* source:	https://sketchfab.com/3d-models/abb-irb-120-robot-d5c10640e6ae42eaa0b96a14f50840e0
+* author:	bluoppVR (https://sketchfab.com/bluoppVR)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "ABB IRB 120 Robot" (https://sketchfab.com/3d-models/abb-irb-120-robot-d5c10640e6ae42eaa0b96a14f50840e0) by bluoppVR (https://sketchfab.com/bluoppVR) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
