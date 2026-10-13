@@ -12,7 +12,15 @@ Grupo VEVAS
 
 import numpy as np
 import matplotlib
-matplotlib.use("Agg")
+
+# El backend Agg escribe a archivo y no dibuja en pantalla. Se fuerza
+# SOLO cuando este modulo se ejecuta como script. Al importarlo desde un
+# notebook hay que respetar el backend inline que Jupyter ya configuro,
+# porque si se lo pisa las figuras no quedan embebidas en el .ipynb y el
+# docente abriria el cuaderno sin ver ninguna grafica.
+if __name__ == "__main__":
+    matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 
 # Paleta categorica (orden fijo, nunca ciclado)
