@@ -1,8 +1,9 @@
-build/
-install/
-log/
 __pycache__/
 *.pyc
-.vscode/
+*.pyo
+
+# Figuras regeneradas al ejecutar el notebook en su propio directorio.
+# Las versionadas viven en docs/hito2/figuras/
+notebooks/*.pdf
+
 .ipynb_checkpoints/
-notebooks/.ipynb_checkpoints/

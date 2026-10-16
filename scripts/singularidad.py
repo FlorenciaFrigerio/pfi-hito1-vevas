@@ -49,6 +49,26 @@ def direccion_perdida(q, tol=1e-9):
     return U[:, -1], S[-1]
 
 
+def direcciones_conservadas(q, tol=1e-6):
+    """
+    Direcciones de tarea que el robot SI puede recorrer en la singularidad.
+
+    Por que hace falta esto
+
+        La matriz diagnostica W10-S01 marca como error conceptual decir
+        que "singularidad = no se mueve", y pide explicitamente mostrar
+        "las direcciones espaciales que si persisten".
+
+    En una singularidad J pierde rango r < 6. Las r primeras columnas de
+    U (valores singulares no despreciables) generan la imagen de J: el
+    subespacio de velocidades de tarea todavia alcanzable. La movilidad
+    no se anula, se degrada de 6 a r dimensiones.
+    """
+    U, S, _ = np.linalg.svd(jacobiano(q))
+    mantiene = S > tol * max(S[0], 1.0)
+    return U[:, mantiene], S[mantiene]
+
+
 def velocidad_requerida(q, xd):
     """
     qd = J^-1 xd, resuelto por minimos cuadrados.
@@ -146,6 +166,18 @@ if __name__ == "__main__":
     print(f"   lineal    = {u[:3]}   angular = {u[3:]}")
     print("   La componente dominante es angular: la muneca pierde una")
     print("   rotacion, no una traslacion.\n")
+
+    # --- 1b. Que direcciones SOBREVIVEN (contra el error "no se mueve")
+    Uc, Sc = direcciones_conservadas(q_sing)
+    print("1b. Direcciones de tarea CONSERVADAS en la singularidad")
+    print(f"   rango(J) = {Uc.shape[1]} de 6  =>  pierde 1 grado de libertad,")
+    print("   no los seis. El robot sigue moviendose en el resto.")
+    for i in range(Uc.shape[1]):
+        v, w = Uc[:3, i], Uc[3:, i]
+        tipo = "traslacion" if np.linalg.norm(v) > np.linalg.norm(w) else "rotacion"
+        print(f"   base {i+1}: sigma = {Sc[i]:>8.4f}   dominante: {tipo:<10}"
+              f" |v| = {np.linalg.norm(v):.3f}  |w| = {np.linalg.norm(w):.3f}")
+    print()
 
     # --- 2. Barrido: velocidad articular exigida
     xd = np.zeros(6)
